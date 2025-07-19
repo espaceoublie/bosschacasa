@@ -54,7 +54,7 @@
       "priceCurrency": "IDR",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Jl. Peneropongan Bintang No.45",
+        "streetAddress": "Jl. Peneropongan Bintang",
         "addressLocality": "Lembang",
         "addressRegion": "Jawa Barat",
         "postalCode": "40391",
@@ -260,7 +260,8 @@
     <!-- Header -->
     <header class="py-6 px-4 md:px-8 lg:px-12">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="text-2xl md:text-3xl font-bold font-lora text-accent">Bosscha.Casa</div>
+            <div class="text-2xl md:text-3xl font-bold font-lora text-accent">Bosscha.<span class="text-white">Casa</span>
+                </div>
             
             <nav class="hidden md:flex space-x-8">
                 <a href="#" class="text-text hover:text-accent transition">Home</a>
@@ -855,36 +856,64 @@
     </div>
 </section>
     
-    <!-- Footer -->
     <footer class="bg-black text-white py-12">
     <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row justify-between">
+            <!-- Logo Section -->
             <div class="mb-8 md:mb-0">
-                <div class="text-2xl font-bold text-accent mb-4 hover-grow inline-block">bosscha.<span class="text-white">casa</span></div>
-                <p class="max-w-xs">Website terdedikasi untuk listing properti eksklusif di Lembang.</p>
+                <div class="text-2xl font-bold font-lora text-accent mb-4 hover-grow inline-block">
+                    Bosscha.<span class="text-white">Casa</span>
+                </div>
+                <p class="font-inter max-w-xs">Website terdedikasi untuk listing properti eksklusif di Lembang.</p>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 md:ml-12">
-                <div class="md:ml-8">
-                    <h3 class="text-accent font-bold mb-4">Tautan</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-accent transition hover-grow inline-block">Home</a></li>
-                        <li><a href="#potensi" class="hover:text-accent transition hover-grow inline-block">Potensi</a></li>
-                        <li><a href="#gallery" class="hover:text-accent transition hover-grow inline-block">Galeri</a></li>
-                        <li><a href="#features" class="hover:text-accent transition hover-grow inline-block">Fitur</a></li>
-                        <li><a href="#location" class="hover:text-accent transition hover-grow inline-block">Lokasi</a></li>
+            
+            <!-- Links Section -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                <!-- Main Links -->
+                <div>
+                    <h3 class="text-accent font-bold mb-4 font-lora">Tautan</h3>
+                    <ul class="space-y-2 font-inter">
+                        <li><a href="#" class="hover:text-accent transition">Home</a></li>
+                        <li><a href="#potensi" class="hover:text-accent transition">Potensi</a></li>
+                        <li><a href="#gallery" class="hover:text-accent transition">Galeri</a></li>
                     </ul>
                 </div>
+                
+                <!-- Secondary Links -->
                 <div>
-                    <h3 class="text-accent font-bold mb-4">Kontak</h3>
-                    <ul class="space-y-2">
-                        <li>Faisal Brighton Infinite</li>
-                        <li>WhatsApp: +62&nbsp;882&nbsp;1049&nbsp;6236</li>
+                    <h3 class="text-accent font-bold mb-4 font-lora">Navigasi</h3>
+                    <ul class="space-y-2 font-inter">
+                        <li><a href="#features" class="hover:text-accent transition">Fitur</a></li>
+                        <li><a href="#location" class="hover:text-accent transition">Lokasi</a></li>
+                        <li><a href="#contact" class="hover:text-accent transition">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal Section -->
+                <div>
+                    <h3 class="text-accent font-bold mb-4 font-lora">Legal</h3>
+                    <ul class="space-y-2 font-inter">
+                        <li><a href="https://bosscha.casa" class="hover:text-accent transition">Website Resmi</a></li>
+                        <li><a href="#" onclick="window.open('https://www.neglasarihouse.com', '_blank'); return false;" class="hover:text-accent transition">Properti Lain</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-accent font-bold mb-4 font-lora">Kontak</h3>
+                    <ul class="space-y-2 font-inter">
+                        <li class="font-medium">Faisal Brighton Infinite</li>
+                        <li>Jl. Peneropongan Bintang</li>
+                        <li>Lembang, Bandung Barat</li>
+                        <li class="animate-pulse-slow">WhatsApp: +62 882 1049 6236</li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
-            <p>© 2025 Bosscha.Casa | All rights reserved.</p>
+        
+        <!-- Copyright -->
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 font-inter">
+            <p>© 2025 Bosscha.Casa | All rights reserved. Part of Brighton Infinite Group.</p>
         </div>
     </div>
 </footer>
