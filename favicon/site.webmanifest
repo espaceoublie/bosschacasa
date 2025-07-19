@@ -1,21 +1,24 @@
 {
-  "name": "YRDN",
-  "short_name": "YRDN",
+  "name": "Bosscha.Casa",
+  "short_name": "Bosscha.Casa",
+  "description": "Villa Retro Eksklusif di Lembang",
   "icons": [
     {
-      "src": "/web-app-manifest-192x192.png",
+      "src": "/favicon/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
-      "src": "/web-app-manifest-512x512.png",
+      "src": "/favicon/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
-  "theme_color": "#fdeb45",
-  "background_color": "#fdeb45",
-  "display": "standalone"
+  "theme_color": "#0D1B2A",
+  "background_color": "#1B263B",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
 }
