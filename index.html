@@ -152,6 +152,9 @@
                 width: 100% !important;
             }
         }
+        #form-status {
+    transition: all 0.3s ease;
+}
     </style>
     
     <!-- Structured Data -->
@@ -559,11 +562,11 @@
         </div>
     </section>
 <!-- Agent Section -->
-<section class="py-16 bg-gray-100 agent-section">
-    <div class="container mx-auto px-4">
+<section class="py-16 bg-secondary agent-section">
+    <div class="container mx-auto px-4 text-text">
         <div class="flex flex-col md:flex-row items-center">
             <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
-                <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-accent hover-grow">
+                <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-accent hover:scale-105 transition-transform duration-300">
                     <img src="https://cdn.brighton.co.id/Uploads/Images/12378787/blP9pjY2/Faisal-IFBD-Medium.webp" 
                          alt="Faisal - Property Advisor" 
                          class="w-full h-full object-cover">
@@ -571,11 +574,11 @@
             </div>
             <div class="md:w-2/3 md:pl-12">
                 <h2 class="text-3xl font-bold mb-4">Faisal</h2>
-                <p class="text-xl text-accent mb-4 animate-pulse">Property Advisor</p>
+                <p class="text-xl text-accent mb-4">Property Advisor</p>
                 <p class="mb-6">Dengan pengalaman luas di pasar properti Bandung dan Lembang, saya siap membantu Anda menemukan properti impian atau mengelola penjualan properti Anda dengan hasil maksimal.</p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                     <a href="https://wa.me/6288210496236?text=Halo%20Faisal,%20saya%20tertarik%20dengan%20villa%20Bosscha.casa%20di%20Lembang.%20Bisa%20diberi%20informasi%20lebih%20lanjut?" 
-                       class="bg-accent text-primary px-6 py-3 rounded font-bold hover:bg-yellow-600 transition text-center hover-grow animate-pulse-slow">
+                       class="bg-accent text-primary px-6 py-3 rounded font-bold hover:bg-yellow-600 transition text-center hover:scale-105 transition-transform duration-300">
                        HUBUNGI VIA WHATSAPP
                     </a>
                 </div>
@@ -681,30 +684,41 @@
                     </div>
                 </div>
                 
-                <div class="lg:w-1/2">
-                    <div class="property-card p-6 rounded-lg h-full">
-                        <h3 class="text-xl font-bold mb-4 text-accent">Formulir Kontak</h3>
-                        <form>
-                            <div class="mb-4">
-                                <label for="name" class="block mb-2">Nama Lengkap</label>
-                                <input type="text" id="name" class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="block mb-2">Email</label>
-                                <input type="email" id="email" class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
-                            </div>
-                            <div class="mb-4">
-                                <label for="phone" class="block mb-2">Nomor Telepon</label>
-                                <input type="tel" id="phone" class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
-                            </div>
-                            <div class="mb-4">
-                                <label for="message" class="block mb-2">Pesan</label>
-                                <textarea id="message" rows="4" class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"></textarea>
-                            </div>
-                            <button type="submit" class="btn-accent px-8 py-3 rounded-lg font-bold w-full">Kirim Pesan</button>
-                        </form>
-                    </div>
-                </div>
+               <div class="lg:w-1/2">
+    <div class="property-card p-6 rounded-lg h-full">
+        <h3 class="text-xl font-bold mb-4 text-accent">Formulir Kontak</h3>
+        <form action="https://formspree.io/f/movljvvq" method="POST">
+            <div class="mb-4">
+                <label for="name" class="block mb-2">Nama Lengkap</label>
+                <input type="text" id="name" name="name" required 
+                       class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block mb-2">Email</label>
+                <input type="email" id="email" name="email" required
+                       class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="block mb-2">Nomor WhatsApp</label>
+                <input type="tel" id="phone" name="phone" required
+                       class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
+            </div>
+            <div class="mb-4">
+                <label for="message" class="block mb-2">Pertanyaan/Pesan</label>
+                <textarea id="message" name="message" rows="4" required
+                          class="w-full px-4 py-2 bg-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"></textarea>
+            </div>
+            <input type="hidden" name="_subject" value="Pesan baru dari bosscha.casa">
+            <input type="hidden" name="_language" value="id">
+            <button type="submit" class="btn-accent px-8 py-3 rounded-lg font-bold w-full hover:bg-yellow-500 transition">
+                Kirim Pesan
+            </button>
+            
+            <!-- Feedback message (akan muncul setelah submit) -->
+            <div id="form-status" class="mt-4 text-center hidden"></div>
+        </form>
+    </div>
+</div>
             </div>
         </div>
     </section>
@@ -746,9 +760,8 @@
                 <div>
                     <h3 class="text-accent font-bold mb-4">Kontak</h3>
                     <ul class="space-y-2">
-                        <li>[Nama Anda]</li>
+                        <li>Faisal Brighton Infinite</li>
                         <li>WhatsApp: +62 882 1049 6236</li>
-                        <li>Email: [email Anda]</li>
                     </ul>
                 </div>
             </div>
@@ -817,5 +830,54 @@
             });
         });
     </script>
-  </body>
+  <script>
+    // Handle form submission feedback
+    const form = document.querySelector("form");
+    const formStatus = document.getElementById("form-status");
+    
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const submitButton = form.querySelector("button[type='submit']");
+        const originalText = submitButton.textContent;
+        
+        try {
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = "Mengirim...";
+            submitButton.classList.add("opacity-75");
+            
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                formStatus.textContent = "Pesan terkirim! Kami akan segera menghubungi Anda.";
+                formStatus.classList.remove("hidden", "text-red-500");
+                formStatus.classList.add("text-green-500");
+                form.reset();
+            } else {
+                throw new Error("Form submission failed");
+            }
+        } catch (error) {
+            formStatus.textContent = "Terjadi kesalahan. Silakan hubungi kami via WhatsApp.";
+            formStatus.classList.remove("hidden", "text-green-500");
+            formStatus.classList.add("text-red-500");
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+            submitButton.classList.remove("opacity-75");
+            formStatus.classList.remove("hidden");
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formStatus.classList.add("hidden");
+            }, 5000);
+        }
+    });
+</script>
+</body>
 </html>
