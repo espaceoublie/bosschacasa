@@ -24,6 +24,11 @@
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
     <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <!-- LightGallery CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-zoom.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-thumbnail.min.css" />
    
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJGLK4PPBD"></script>
@@ -155,6 +160,26 @@
         #form-status {
     transition: all 0.3s ease;
 }
+        /* LightGallery customizations */
+    .lg-outer {
+        background-color: rgba(13, 27, 42, 0.95) !important; /* Match your dark theme */
+    }
+    
+    .lg-sub-html h4 {
+        color: #FFD700 !important; /* Your accent color for titles */
+    }
+    
+    .lg-sub-html p {
+        color: #E0E1DD !important; /* Your text color for descriptions */
+    }
+    
+    .lg-toolbar .lg-icon {
+        color: #FFD700 !important; /* Your accent color for buttons */
+    }
+    
+    .lg-toolbar .lg-icon:hover {
+        color: #ffffff !important;
+    }
     </style>
     
     <!-- Structured Data -->
@@ -368,117 +393,176 @@
         </div>
     </section>
 
-    <!-- Gallery -->
-    <section id="gallery" class="py-16 px-4 md:px-8 lg:px-12">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold font-lora mb-12 text-center section-title">Galeri</h2>
+    <!-- Gallery Section -->
+<section id="gallery" class="py-16 px-4 md:px-8 lg:px-12">
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-bold font-lora mb-12 text-center section-title">Galeri</h2>
+        
+        <div id="lightgallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Main Front View -->
+            <a href="https://bosscha.casa/photos/tampak_depan_utama.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Tampak Depan Utama</h4><p>Tampak depan villa Bosscha.casa dari jalan masuk</p>">
+                <img src="https://bosscha.casa/photos/tampak_depan_utama.webp" 
+                     alt="Tampak Depan Utama Villa Bosscha.casa" 
+                     class="w-full h-64 object-cover">
+            </a>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/tampak_depan.webp" 
-                         alt="Tampak Depan Villa Bosscha.casa" 
-                         title="Tampak Depan Villa Retro"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/tampak_depan2.webp" 
-                         alt="Tampak Depan Alternatif Villa" 
-                         title="Sudut Lain Tampak Depan"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/jalan_masuk2.webp" 
-                         alt="Jalan Masuk ke Villa" 
-                         title="Jalan Masuk Eksklusif"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/ruang_keluarga.webp" 
-                         alt="Ruang Keluarga Villa" 
-                         title="Ruang Keluarga Nyaman"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/ruang_TV2.webp" 
-                         alt="Ruang TV dan Santai" 
-                         title="Area Santai dengan TV"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/ruang_makan.webp" 
-                         alt="Ruang Makan Utama" 
-                         title="Ruang Makan Elegan"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/ruang_makan2.webp" 
-                         alt="Sudut Lain Ruang Makan" 
-                         title="Alternatif Ruang Makan"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/ruang_makan3.webp" 
-                         alt="Detail Ruang Makan" 
-                         title="Detail Furnitur Ruang Makan"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/ruang_makan4.webp" 
-                         alt="Pemandangan dari Ruang Makan" 
-                         title="View dari Ruang Makan"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/kitchen_set.webp" 
-                         alt="Kitchen Set Villa" 
-                         title="Dapur Lengkap"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/kamar.webp" 
-                         alt="Kamar Tidur Utama" 
-                         title="Kamar Tidur Mewah"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/meja_rias.webp" 
-                         alt="Meja Rias Kamar" 
-                         title="Area Meja Rias"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/toilet.webp" 
-                         alt="Kamar Mandi Villa" 
-                         title="Kamar Mandi Modern"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/paviliun.webp" 
-                         alt="Paviliun Terpisah" 
-                         title="Bangunan Paviliun"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/paviliun2.webp" 
-                         alt="Interior Paviliun" 
-                         title="Ruangan di Paviliun"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/halaman_belakang.webp" 
-                         alt="Halaman Belakang Villa" 
-                         title="Area Kebun Belakang"
-                         class="w-full h-64 object-cover">
-                </div>
-                <div class="rounded-lg overflow-hidden property-card">
-                    <img src="https://bosscha.casa/photos/ruang_santai.webp" 
-                         alt="Ruang Santai Outdoor" 
-                         title="Area Santai di Kebun"
-                         class="w-full h-64 object-cover">
-                </div>
-            </div>
+            <!-- Alternative Front View -->
+            <a href="https://bosscha.casa/photos/tampak_depan.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Tampak Depan</h4><p>Sudut lain tampak depan villa</p>">
+                <img src="https://bosscha.casa/photos/tampak_depan.webp" 
+                     alt="Tampak Depan Villa Bosscha.casa" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Second Alternative Front View -->
+            <a href="https://bosscha.casa/photos/tampak_depan2.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Tampak Depan Alternatif</h4><p>Pandangan dekat tampak depan</p>">
+                <img src="https://bosscha.casa/photos/tampak_depan2.webp" 
+                     alt="Tampak Depan Alternatif Villa" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Entrance Road -->
+            <a href="https://bosscha.casa/photos/jalan_masuk2.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Jalan Masuk</h4><p>Jalan masuk eksklusif menuju villa</p>">
+                <img src="https://bosscha.casa/photos/jalan_masuk2.webp" 
+                     alt="Jalan Masuk ke Villa" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Living Room -->
+            <a href="https://bosscha.casa/photos/ruang_keluarga.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Ruang Keluarga</h4><p>Ruang keluarga utama dengan suasana nyaman</p>">
+                <img src="https://bosscha.casa/photos/ruang_keluarga.webp" 
+                     alt="Ruang Keluarga Villa" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- TV Room -->
+            <a href="https://bosscha.casa/photos/ruang_TV2.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Ruang TV</h4><p>Area santai dengan televisi</p>">
+                <img src="https://bosscha.casa/photos/ruang_TV2.webp" 
+                     alt="Ruang TV dan Santai" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Dining Room -->
+            <a href="https://bosscha.casa/photos/ruang_makan.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Ruang Makan</h4><p>Ruang makan utama dengan meja besar</p>">
+                <img src="https://bosscha.casa/photos/ruang_makan.webp" 
+                     alt="Ruang Makan Utama" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Alternative Dining Room View -->
+            <a href="https://bosscha.casa/photos/ruang_makan2.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Ruang Makan Alternatif</h4><p>Sudut lain ruang makan</p>">
+                <img src="https://bosscha.casa/photos/ruang_makan2.webp" 
+                     alt="Sudut Lain Ruang Makan" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Dining Room Detail -->
+            <a href="https://bosscha.casa/photos/ruang_makan3.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Detail Ruang Makan</h4><p>Detail furnitur dan dekorasi ruang makan</p>">
+                <img src="https://bosscha.casa/photos/ruang_makan3.webp" 
+                     alt="Detail Ruang Makan" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Dining Room View -->
+            <a href="https://bosscha.casa/photos/ruang_makan4.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Pemandangan dari Ruang Makan</h4><p>View alam dari ruang makan</p>">
+                <img src="https://bosscha.casa/photos/ruang_makan4.webp" 
+                     alt="Pemandangan dari Ruang Makan" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Kitchen -->
+            <a href="https://bosscha.casa/photos/kitchen_set.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Dapur</h4><p>Kitchen set lengkap dengan peralatan modern</p>">
+                <img src="https://bosscha.casa/photos/kitchen_set.webp" 
+                     alt="Kitchen Set Villa" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Bedroom -->
+            <a href="https://bosscha.casa/photos/kamar.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Kamar Tidur Utama</h4><p>Kamar tidur mewah dengan tempat tidur besar</p>">
+                <img src="https://bosscha.casa/photos/kamar.webp" 
+                     alt="Kamar Tidur Utama" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Dressing Table -->
+            <a href="https://bosscha.casa/photos/meja_rias.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Meja Rias</h4><p>Area meja rias kamar utama</p>">
+                <img src="https://bosscha.casa/photos/meja_rias.webp" 
+                     alt="Meja Rias Kamar" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Bathroom -->
+            <a href="https://bosscha.casa/photos/toilet.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Kamar Mandi</h4><p>Kamar mandi modern dengan perlengkapan lengkap</p>">
+                <img src="https://bosscha.casa/photos/toilet.webp" 
+                     alt="Kamar Mandi Villa" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Pavilion -->
+            <a href="https://bosscha.casa/photos/paviliun.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Paviliun</h4><p>Bangunan paviliun terpisah di area kebun</p>">
+                <img src="https://bosscha.casa/photos/paviliun.webp" 
+                     alt="Paviliun Terpisah" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Pavilion Interior -->
+            <a href="https://bosscha.casa/photos/paviliun2.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Interior Paviliun</h4><p>Ruangan di dalam paviliun</p>">
+                <img src="https://bosscha.casa/photos/paviliun2.webp" 
+                     alt="Interior Paviliun" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Backyard -->
+            <a href="https://bosscha.casa/photos/halaman_belakang.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Halaman Belakang</h4><p>Area kebun belakang yang luas</p>">
+                <img src="https://bosscha.casa/photos/halaman_belakang.webp" 
+                     alt="Halaman Belakang Villa" 
+                     class="w-full h-64 object-cover">
+            </a>
+            
+            <!-- Outdoor Lounge -->
+            <a href="https://bosscha.casa/photos/ruang_santai.webp" 
+               class="gallery-item rounded-lg overflow-hidden property-card"
+               data-sub-html="<h4>Ruang Santai Outdoor</h4><p>Area santai di tengah kebun</p>">
+                <img src="https://bosscha.casa/photos/ruang_santai.webp" 
+                     alt="Ruang Santai Outdoor" 
+                     class="w-full h-64 object-cover">
+            </a>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Features -->
     <section id="features" class="py-16 px-4 md:px-8 lg:px-12 bg-dark bg-opacity-50">
@@ -877,6 +961,33 @@
                 formStatus.classList.add("hidden");
             }, 5000);
         }
+    });
+</script>
+    <!-- Add these before </body> -->
+<!-- LightGallery JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        lightGallery(document.getElementById('lightgallery'), {
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+            download: false,
+            getCaptionFromTitleOrAlt: false,
+            actualSize: false
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        lightGallery(document.getElementById('lightgallery'), {
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+            download: false,
+            getCaptionFromTitleOrAlt: false,
+            actualSize: false
+        });
     });
 </script>
 </body>
