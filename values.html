@@ -410,6 +410,13 @@
             display: flex;
             justify-content: space-between;
         }
+        @media (max-width: 767px) {
+    #mobile-menu {
+        backdrop-filter: blur(10px);
+        background-color: rgba(27, 38, 59, 0.95);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+}
     </style>
 </head>
 <body class="star-bg">
@@ -422,25 +429,36 @@
         </a>
 
         <!-- Header -->
-        <header class="py-6 px-4 md:px-8 lg:px-12">
-            <div class="container mx-auto flex justify-between items-center">
-                <div class="text-2xl md:text-3xl font-bold font-lora text-accent">Bosscha.<span class="text-white">Casa</span></div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="/" class="text-text hover:text-accent transition">Home</a>
-                    <a href="#potensi" class="text-text hover:text-accent transition">Potensi</a>
-                    <a href="#gallery" class="text-text hover:text-accent transition">Galeri</a>
-                    <a href="#location" class="text-text hover:text-accent transition">Lokasi</a>
-                    <a href="#contact" class="text-text hover:text-accent transition">Hubungi</a>
-                </nav>
-                
-                <button class="md:hidden text-text focus:outline-none" aria-label="Toggle menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </header>
+<header class="py-6 px-4 md:px-8 lg:px-12 relative">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="text-2xl md:text-3xl font-bold font-lora text-accent">Bosscha.<span class="text-white">Casa</span></div>
+        
+        <nav class="hidden md:flex space-x-8">
+            <a href="/" class="text-text hover:text-accent transition">Home</a>
+            <a href="#potensi" class="text-text hover:text-accent transition">Potensi</a>
+            <a href="#gallery" class="text-text hover:text-accent transition">Galeri</a>
+            <a href="#location" class="text-text hover:text-accent transition">Lokasi</a>
+            <a href="#contact" class="text-text hover:text-accent transition">Hubungi</a>
+        </nav>
+        
+        <button id="mobile-menu-button" class="md:hidden text-text focus:outline-none" aria-label="Toggle menu">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+    
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden hidden absolute top-20 right-4 bg-secondary w-48 rounded-lg shadow-lg z-50">
+        <div class="flex flex-col p-4 space-y-4">
+            <a href="/" class="text-text hover:text-accent transition">Home</a>
+            <a href="#potensi" class="text-text hover:text-accent transition">Potensi</a>
+            <a href="#gallery" class="text-text hover:text-accent transition">Galeri</a>
+            <a href="#location" class="text-text hover:text-accent transition">Lokasi</a>
+            <a href="#contact" class="text-text hover:text-accent transition">Hubungi</a>
+        </div>
+    </div>
+</header>
 
         <!-- Hero Section -->
         <section class="py-16 md:py-24 px-4 md:px-8 lg:px-12">
@@ -1166,5 +1184,34 @@
             calculateBtn.click();
         });
     </script>
+<script>
+<script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event from bubbling to document
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close menu when clicking on a link
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>
+</script>
 </body>
 </html>
