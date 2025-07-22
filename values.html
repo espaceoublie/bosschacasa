@@ -852,8 +852,8 @@
         <img src="https://bosscha.casa/photos/ruang_keluarga.webp" alt="Ruang Tamu Villa Bosscha.Casa" class="w-full h-64 object-cover rounded-lg">
       </a>
 
-<!-- Tombol ke Homepage, Tidak Terpengaruh LightGallery -->
-<a href="https://bosscha.casa/#gallery" class="col-span-1 transition-all duration-300 no-lightbox">
+<!-- Tombol ke Homepage (tidak trigger LightGallery) -->
+<button onclick="window.location.href='https://bosscha.casa/#gallery'" class="col-span-1 transition-all duration-300">
   <div class="w-full h-64 bg-secondary rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition flex flex-col items-center justify-center border-2 border-dashed border-accent">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-accent mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -862,7 +862,8 @@
     <h3 class="text-xl font-semibold text-accent">Lihat Galeri Lengkap</h3>
     <p class="text-text mt-1 text-center px-4 text-sm">Telusuri semua foto lainnya di halaman utama</p>
   </div>
-</a>
+</button>
+
 
 
 
