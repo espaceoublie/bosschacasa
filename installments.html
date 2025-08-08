@@ -13,6 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- PDF Generator Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
     <!-- Favicon setup -->
     <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
@@ -158,72 +162,116 @@
 
     <!-- Calculator Section -->
     <section id="installment-calculator" class="py-16 px-4 md:px-8 lg:px-12">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold font-lora mb-12 text-center section-title">Kalkulator Cicilan</h2>
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold font-lora mb-12 text-center section-title">Kalkulator Cicilan</h2>
 
-        <div class="flex flex-col lg:flex-row gap-8">
-          <!-- Input -->
-          <div class="lg:w-1/2">
-            <div class="property-card p-6 rounded-lg bg-white shadow-md">
-              <h3 class="text-xl font-bold mb-4 text-accent">Input Parameter</h3>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Input -->
+                <div class="lg:w-1/2 flex flex-col">
+                    <div class="property-card p-6 rounded-lg bg-white shadow-md flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold mb-4 text-accent">Input Parameter</h3>
 
-              <div class="input-group mb-4">
-                <label for="harga-beli" class="block mb-2 font-medium">Harga Beli (Rp)</label>
-                <input type="text" id="harga-beli" value="130.000.000" 
-                  class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              </div>
+                        <div class="input-group mb-4">
+                            <label for="harga-beli" class="block mb-2 font-medium">Harga Beli (Rp)</label>
+                            <input type="text" id="harga-beli" value="130.000.000" 
+                                class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-dark">
+                        </div>
 
-              <div class="input-group mb-4">
-                <label for="dp" class="block mb-2 font-medium">Down Payment (Rp)</label>
-                <input type="text" id="dp" value="40.000.000" 
-                  class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              </div>
+                        <div class="input-group mb-4">
+                            <label for="dp" class="block mb-2 font-medium">Down Payment (Rp)</label>
+                            <input type="text" id="dp" value="40.000.000" 
+                                class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-dark">
+                        </div>
 
-              <div class="input-group mb-4">
-                <label for="cicilan-bulanan" class="block mb-2 font-medium">Cicilan per Bulan (Rp)</label>
-                <input type="text" id="cicilan-bulanan" value="3.500.000" 
-                  class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              </div>
+                        <div class="input-group mb-4">
+                            <label for="cicilan-bulanan" class="block mb-2 font-medium">Cicilan per Bulan (Rp)</label>
+                            <input type="text" id="cicilan-bulanan" value="3.500.000" 
+                                class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-dark">
+                        </div>
 
-              <button id="hitung-cicilan-btn" class="btn-accent px-6 py-3 rounded-lg font-bold w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white transition-colors">Hitung Cicilan</button>
+                        <div class="mt-auto">
+                            <button id="hitung-cicilan-btn" class="btn-accent px-6 py-3 rounded-lg font-bold w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white transition-colors">Hitung Cicilan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output -->
+                <div class="lg:w-1/2 flex flex-col">
+                    <div class="property-card p-6 rounded-lg bg-white shadow-md flex-grow">
+                        <h3 class="text-xl font-bold mb-4 text-accent">Hasil Perhitungan</h3>
+
+                        <div id="hasil-cicilan" class="h-full flex flex-col">
+                            <div>
+                                <div class="result-card mb-4 pb-4 border-b border-gray-200">
+                                    <span class="text-gray-600">Pelunasan</span>
+                                    <strong id="total-pinjaman" class="text-lg">Rp 0</strong>
+                                </div>
+
+                                <div class="result-card mb-4 pb-4 border-b border-gray-200">
+                                    <span class="text-gray-600">Lama Cicilan</span>
+                                    <strong id="lama-cicilan" class="text-lg">0 bulan (0 tahun)</strong>
+                                </div>
+
+                                <div class="result-card mb-4 pb-4 border-b border-gray-200">
+                                    <span class="text-gray-600">Cicilan per Bulan</span>
+                                    <strong id="cicilan-output" class="text-lg">Rp 0</strong>
+                                </div>
+
+                                <div class="result-card highlight mb-6 pb-4 border-b border-gray-200">
+                                    <span class="text-gray-600">Total Pembayaran</span>
+                                    <strong id="total-pembayaran" class="text-xl text-blue-600">Rp 0</strong>
+                                    <p class="text-sm text-gray-500 mt-1">(DP + Total Cicilan setelah pembulatan)</p>
+       
+                            </div>
+
+                            <div class="note-card info mt-auto p-4 bg-blue-50 rounded-lg">
+                                <h4 class="font-bold mb-2 text-blue-800">Catatan:</h4>
+                                <ul class="list-disc pl-5 space-y-1 text-sm text-blue-700">
+                                    <li>Perhitungan menggunakan sistem flat tanpa bunga.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <!-- Output -->
-          <div class="lg:w-1/2">
-            <div class="property-card p-6 rounded-lg bg-white shadow-md">
-              <h3 class="text-xl font-bold mb-4 text-accent">Hasil Perhitungan</h3>
-
-              <div id="hasil-cicilan">
-                <div class="result-card mb-4 pb-4 border-b border-gray-200">
-                  <span class="text-gray-600">Total Pinjaman</span>
-                  <strong id="total-pinjaman" class="text-lg">Rp 0</strong>
-                </div>
-
-                <div class="result-card mb-4 pb-4 border-b border-gray-200">
-                  <span class="text-gray-600">Lama Cicilan</span>
-                  <strong id="lama-cicilan" class="text-lg">0 bulan (0 tahun)</strong>
-                </div>
-
-                <div class="result-card highlight mb-6 pb-4 border-b border-gray-200">
-                  <span class="text-gray-600">Cicilan per Bulan</span>
-                  <strong id="cicilan-output" class="text-xl text-blue-600">Rp 0</strong>
-                </div>
-
-                <div class="note-card info mt-6 p-4 bg-blue-50 rounded-lg">
-                  <h4 class="font-bold mb-2 text-blue-800">Catatan:</h4>
-                  <ul class="list-disc pl-5 space-y-1 text-sm text-blue-700">
-                    <li>Perhitungan menggunakan sistem flat tanpa bunga</li>
-                    <li>Belum termasuk biaya administrasi atau asuransi</li>
-                    <li>Nominal dibulatkan ke atas</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
+     
+    <!-- Download PDF Section -->
+<section id="download-section" class="py-8 px-4 md:px-8 lg:px-12 bg-primary bg-opacity-10">
+    <div class="container mx-auto">
+        <div class="max-w-2xl mx-auto property-card p-8 rounded-xl bg-white shadow-lg text-center">
+            <h3 class="text-xl font-bold font-lora mb-6 text-accent">Hasil Perhitungan</h3>
+            
+            <div class="flex flex-col items-center">
+                <button id="download-pdf-btn" class="btn-accent px-8 py-4 rounded-xl font-bold bg-green-600 hover:bg-green-700 text-white transition-all transform hover:scale-105 inline-flex items-center shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download PDF
+                </button>
+                
+                <div class="mt-6 text-sm text-gray-600">
+                    <p class="mb-2">Dokumen ini berisi ringkasan lengkap perhitungan cicilan Anda</p>
+                    <p class="text-xs text-gray-500">Format PDF - Kompatibel dengan semua perangkat</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                <h4 class="font-bold text-blue-800 mb-2 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
+                    </svg>
+                    Informasi Penting
+                </h4>
+                <p class="text-xs text-blue-700">
+                    Dokumen PDF dibuat otomatis oleh sistem dan dapat digunakan sebagai referensi. 
+                    Hasil perhitungan bukan penawaran resmi dari Brighton Infinite.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Agent Section -->
     <section class="py-16 bg-secondary agent-section">
@@ -357,15 +405,117 @@
             const totalPinjaman = hargaBeli - dp;
             const lamaBulan = Math.ceil(totalPinjaman / Math.max(cicilanBulanan, 1));
             const lamaTahun = (lamaBulan / 12).toFixed(1);
+            const totalCicilan = lamaBulan * cicilanBulanan;
+            const totalPembayaran = dp + totalCicilan;
 
             document.getElementById("total-pinjaman").textContent = "Rp " + formatCurrency(totalPinjaman);
             document.getElementById("lama-cicilan").textContent = `${lamaBulan} bulan (${lamaTahun} tahun)`;
             document.getElementById("cicilan-output").textContent = "Rp " + formatCurrency(cicilanBulanan);
+            document.getElementById("total-pembayaran").textContent = "Rp " + formatCurrency(totalPembayaran);
         }
 
         function formatCurrency(amount) {
             return amount.toLocaleString('id-ID');
         }
+
+        // PDF Generator Functionality
+        document.getElementById('download-pdf-btn').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set document properties
+            doc.setProperties({
+                title: 'Hasil Perhitungan Cicilan Bosscha.Casa',
+                subject: 'Perhitungan Pembiayaan Properti',
+                author: 'Faisal Brighton - Brighton Infinite',
+                keywords: 'cicilan, properti, villa, lembang, kalkulator',
+                creator: 'Bosscha.Casa Calculator'
+            });
+
+            // Add logo
+            doc.addImage('https://bosscha.casa/favicon/apple-touch-icon.png', 'PNG', 15, 10, 20, 20);
+            
+            // Title
+            doc.setFontSize(18);
+            doc.setTextColor(13, 27, 42); // Primary color
+            doc.setFont("helvetica", "bold");
+            doc.text("HASIL PERHITUNGAN CICILAN", 105, 20, { align: 'center' });
+            
+            // Subtitle
+            doc.setFontSize(12);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Faisal | Brighton Infinite | Veteran Bandung", 105, 27, { align: 'center' });
+            
+            // Divider
+            doc.setDrawColor(255, 215, 0); // Accent color
+            doc.setLineWidth(0.5);
+            doc.line(20, 32, 190, 32);
+            
+            // Input Section
+            doc.setFontSize(14);
+            doc.setTextColor(13, 27, 42);
+            doc.setFont("helvetica", "bold");
+            doc.text("DATA INPUT", 20, 42);
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Harga Beli: Rp ${document.getElementById('harga-beli').value}`, 20, 50);
+            doc.text(`Down Payment: Rp ${document.getElementById('dp').value}`, 20, 57);
+            doc.text(`Cicilan per Bulan: Rp ${document.getElementById('cicilan-bulanan').value}`, 20, 64);
+            
+            // Results Section
+            doc.setFontSize(14);
+            doc.setTextColor(13, 27, 42);
+            doc.setFont("helvetica", "bold");
+            doc.text("HASIL PERHITUNGAN", 20, 80);
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Total Pinjaman: ${document.getElementById('total-pinjaman').textContent}`, 20, 88);
+            doc.text(`Lama Cicilan: ${document.getElementById('lama-cicilan').textContent}`, 20, 95);
+            doc.text(`Total Pembayaran: ${document.getElementById('total-pembayaran').textContent}`, 20, 102);
+            
+            // Summary Table
+            doc.autoTable({
+                startY: 110,
+                head: [['Keterangan', 'Nominal']],
+                body: [
+                    ['Harga Beli', `Rp ${document.getElementById('harga-beli').value}`],
+                    ['Down Payment', `Rp ${document.getElementById('dp').value}`],
+                    ['Total Pinjaman', document.getElementById('total-pinjaman').textContent],
+                    ['Lama Cicilan', document.getElementById('lama-cicilan').textContent],
+                    ['Total Pembayaran', document.getElementById('total-pembayaran').textContent]
+                ],
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [13, 27, 42], // Primary color
+                    textColor: 255,
+                    fontStyle: 'bold'
+                },
+                alternateRowStyles: {
+                    fillColor: [240, 240, 240]
+                },
+                margin: { top: 10 }
+            });
+            
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Dokumen ini dibuat otomatis oleh Kalkulator Cicilan Bosscha.Casa", 105, 280, { align: 'center' });
+            doc.text(`Tanggal: ${new Date().toLocaleDateString('id-ID')} | Halaman 1/1`, 105, 285, { align: 'center' });
+            
+            // Disclaimer
+            doc.setFontSize(8);
+            doc.text("Disclaimer: Hasil perhitungan ini dibuat oleh pengguna (calon pembeli /penjual properti) dan bukan merupakan penawaran resmi dari Brighton Infinite.", 105, 290, { 
+                align: 'center',
+                maxWidth: 180
+            });
+            
+            // Save PDF
+            doc.save(`Perhitungan-Cicilan-BosschaCasa-${new Date().getTime()}.pdf`);
+        });
     </script>
 </body>
 </html>
