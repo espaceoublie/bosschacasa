@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Cicilan - Bosscha.Casa</title>
+    <meta name="description" content="Kalkulator cicilan untuk villa eksklusif di Lembang">
+    <meta name="keywords" content="kalkulator cicilan, villa lembang, cicilan properti">
+    <meta name="author" content="Bosscha.Casa">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon setup -->
+    <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0D1B2A',
+                        secondary: '#1B263B',
+                        accent: '#FFD700',
+                        text: '#E0E1DD',
+                        dark: '#02040F',
+                        star: '#9D7EDC'
+                    },
+                    fontFamily: {
+                        lora: ['Lora', 'serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background: linear-gradient(to bottom, #0D1B2A, #1B263B);
+            color: #E0E1DD;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-accent {
+            background-color: #FFD700;
+            color: #0D1B2A;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+        
+        .property-card {
+            background: #1B263B;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: #FFD700;
+        }
+        
+        @media (max-width: 767px) {
+            #mobile-menu {
+                backdrop-filter: blur(10px);
+                background-color: rgba(27, 38, 59, 0.95);
+                border: 1px solid rgba(255, 215, 0, 0.2);
+            }
+        }
+        
+        /* WhatsApp floating button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float img {
+            width: 40px;
+            height: 40px;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <a href="https://wa.me/6288210496236?text=Halo%20Faisal,%20saya%20tertarik%20dengan%20villa%20Bosscha.Casa%20di%20Lembang.%20Bisa%20diberi%20informasi%20lebih%20lanjut?" 
+       target="_blank" 
+       class="whatsapp-float" 
+       title="Chat on WhatsApp">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+    </a>
+
+    <!-- Header -->
+    <header class="py-6 px-4 md:px-8 lg:px-12 relative">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl md:text-3xl font-bold font-lora text-accent">Bosscha.<span class="text-white">Casa</span></div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="/" class="text-text hover:text-accent transition">Home</a>
+                <a href="/calculator" class="text-text hover:text-accent transition font-bold">Kalkulator</a>
+            </nav>
+            
+            <button id="mobile-menu-button" class="md:hidden text-text focus:outline-none" aria-label="Toggle menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden absolute top-20 right-4 bg-secondary w-48 rounded-lg shadow-lg z-50">
+            <div class="flex flex-col p-4 space-y-4">
+                <a href="/" class="text-text hover:text-accent transition">Home</a>
+                <a href="/calculator" class="text-text hover:text-accent transition font-bold">Kalkulator</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Calculator Section -->
+    <section id="installment-calculator" class="py-16 px-4 md:px-8 lg:px-12">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold font-lora mb-12 text-center section-title">Kalkulator Cicilan</h2>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Input -->
+          <div class="lg:w-1/2">
+            <div class="property-card p-6 rounded-lg bg-white shadow-md">
+              <h3 class="text-xl font-bold mb-4 text-accent">Input Parameter</h3>
+
+              <div class="input-group mb-4">
+                <label for="harga-beli" class="block mb-2 font-medium">Harga Beli (Rp)</label>
+                <input type="text" id="harga-beli" value="130.000.000" 
+                  class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              </div>
+
+              <div class="input-group mb-4">
+                <label for="dp" class="block mb-2 font-medium">Down Payment (Rp)</label>
+                <input type="text" id="dp" value="40.000.000" 
+                  class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              </div>
+
+              <div class="input-group mb-4">
+                <label for="cicilan-bulanan" class="block mb-2 font-medium">Cicilan per Bulan (Rp)</label>
+                <input type="text" id="cicilan-bulanan" value="3.500.000" 
+                  class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              </div>
+
+              <button id="hitung-cicilan-btn" class="btn-accent px-6 py-3 rounded-lg font-bold w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white transition-colors">Hitung Cicilan</button>
+            </div>
+          </div>
+
+          <!-- Output -->
+          <div class="lg:w-1/2">
+            <div class="property-card p-6 rounded-lg bg-white shadow-md">
+              <h3 class="text-xl font-bold mb-4 text-accent">Hasil Perhitungan</h3>
+
+              <div id="hasil-cicilan">
+                <div class="result-card mb-4 pb-4 border-b border-gray-200">
+                  <span class="text-gray-600">Total Pinjaman</span>
+                  <strong id="total-pinjaman" class="text-lg">Rp 0</strong>
+                </div>
+
+                <div class="result-card mb-4 pb-4 border-b border-gray-200">
+                  <span class="text-gray-600">Lama Cicilan</span>
+                  <strong id="lama-cicilan" class="text-lg">0 bulan (0 tahun)</strong>
+                </div>
+
+                <div class="result-card highlight mb-6 pb-4 border-b border-gray-200">
+                  <span class="text-gray-600">Cicilan per Bulan</span>
+                  <strong id="cicilan-output" class="text-xl text-blue-600">Rp 0</strong>
+                </div>
+
+                <div class="note-card info mt-6 p-4 bg-blue-50 rounded-lg">
+                  <h4 class="font-bold mb-2 text-blue-800">Catatan:</h4>
+                  <ul class="list-disc pl-5 space-y-1 text-sm text-blue-700">
+                    <li>Perhitungan menggunakan sistem flat tanpa bunga</li>
+                    <li>Belum termasuk biaya administrasi atau asuransi</li>
+                    <li>Nominal dibulatkan ke atas</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agent Section -->
+    <section class="py-16 bg-secondary agent-section">
+        <div class="container mx-auto px-4 text-text">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+                    <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-accent hover:scale-105 transition-transform duration-300">
+                        <a href="/profile">
+                            <img src="https://cdn.brighton.co.id/Uploads/Images/12378787/blP9pjY2/Faisal-IFBD-Medium.webp" 
+                             alt="Faisal Brighton Infinite Veteran Bandung" 
+                             class="w-full h-full object-cover">
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pl-12">
+                    <h2 class="text-3xl font-bold mb-4">Faisal Brighton Infinite Veteran Bandung</h2>
+                    <p class="text-xl text-accent mb-4">Property Advisor</p>
+                    <p class="mb-6">Dengan pengalaman luas di pasar properti Bandung dan Lembang, saya siap membantu Anda menemukan properti impian atau mengelola penjualan properti Anda dengan hasil maksimal.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="https://wa.me/6288210496236?text=Halo%20Faisal,%20saya%20tertarik%20dengan%20villa%20Bosscha.casa%20di%20Lembang.%20Bisa%20diberi%20informasi%20lebih%20lanjut?" 
+                           class="bg-accent text-primary px-6 py-3 rounded font-bold hover:bg-yellow-600 transition text-center hover:scale-105 transition-transform duration-300">
+                           HUBUNGI VIA WHATSAPP
+                        </a>
+                        <a href="https://www.neglasarihouse.com" 
+                           class="border border-accent text-accent px-6 py-3 rounded font-bold hover:bg-accent hover:text-primary transition text-center hover:scale-105 transition-transform duration-300">
+                           PROPERTI LAINNYA
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 md:px-8 lg:px-12 bg-dark">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="text-2xl font-bold font-lora text-accent mb-2">Bosscha.<span class="text-white">Casa</span></div>
+                    <p class="text-sm text-text/70">Villa Eksklusif di Lembang, Bandung Barat</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="/" class="text-text hover:text-accent transition">Home</a>
+                    <a href="/calculator" class="text-text hover:text-accent transition">Kalkulator</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-accent/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-text/50 mb-4 md:mb-0">© 2025 Bosscha.Casa | All rights reserved. Part of Brighton Infinite Group.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close menu when clicking on a link
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+
+        // Calculator functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = ["harga-beli", "dp", "cicilan-bulanan"];
+
+            // Format input saat pertama kali dimuat
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                formatInput(el);
+            });
+
+            // Pasang listener untuk format input real-time
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                el.addEventListener("input", function() {
+                    formatInput(this);
+                });
+            });
+
+            // Hitung cicilan saat tombol diklik
+            document.getElementById("hitung-cicilan-btn").addEventListener("click", calculateInstallment);
+
+            // Juga hitung cicilan saat Enter ditekan
+            inputs.forEach(id => {
+                document.getElementById(id).addEventListener("keypress", function(e) {
+                    if (e.key === "Enter") {
+                        calculateInstallment();
+                    }
+                });
+            });
+
+            // Hitung otomatis saat pertama kali dimuat
+            calculateInstallment();
+        });
+
+        function formatInput(inputElement) {
+            // Dapatkan nilai input dan hapus semua karakter non-digit
+            let value = inputElement.value.replace(/[^\d]/g, "");
+            
+            // Format dengan titik sebagai pemisah ribuan
+            if (value.length > 0) {
+                value = parseInt(value, 10).toLocaleString('id-ID');
+            }
+            
+            // Perbarui nilai input
+            inputElement.value = value;
+        }
+
+        function parseInputValue(value) {
+            // Hapus semua karakter non-digit dan parse ke number
+            return parseInt(value.replace(/[^\d]/g, ""), 10) || 0;
+        }
+
+        function calculateInstallment() {
+            const hargaBeli = parseInputValue(document.getElementById("harga-beli").value);
+            const dp = parseInputValue(document.getElementById("dp").value);
+            const cicilanBulanan = parseInputValue(document.getElementById("cicilan-bulanan").value);
+
+            const totalPinjaman = hargaBeli - dp;
+            const lamaBulan = Math.ceil(totalPinjaman / Math.max(cicilanBulanan, 1));
+            const lamaTahun = (lamaBulan / 12).toFixed(1);
+
+            document.getElementById("total-pinjaman").textContent = "Rp " + formatCurrency(totalPinjaman);
+            document.getElementById("lama-cicilan").textContent = `${lamaBulan} bulan (${lamaTahun} tahun)`;
+            document.getElementById("cicilan-output").textContent = "Rp " + formatCurrency(cicilanBulanan);
+        }
+
+        function formatCurrency(amount) {
+            return amount.toLocaleString('id-ID');
+        }
+    </script>
+</body>
+</html>
