@@ -3095,28 +3095,36 @@
         }
 
         // Initialize checkboxes
-       document.addEventListener('DOMContentLoaded', function() {
-    // Load from localStorage
-    const checkboxes = document.querySelectorAll('.uni-checkbox');
-    checkboxes.forEach(checkbox => {
-        const savedState = localStorage.getItem(checkbox.id);
-        if (savedState !== null) {
-            checkbox.checked = savedState === 'true';
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load from localStorage
+        const checkboxes = document.querySelectorAll('.uni-checkbox');
+        checkboxes.forEach(checkbox => {
+            // Load saved state using just the checkbox ID as key
+            const savedState = localStorage.getItem(checkbox.id);
+            if (savedState !== null) {
+                checkbox.checked = savedState === 'true';
+            }
+            
+            // Save on change
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(checkbox.id, this.checked);
+                console.log('Saved:', checkbox.id, this.checked); // Debug logging
+            });
+        });
+
+        // Debug: Log current localStorage state
+        console.log('Current localStorage state:', localStorage);
     });
 
-    // Save on change
-    document.addEventListener('change', function(e) {
-        if (e.target.classList.contains('uni-checkbox')) {
-            localStorage.setItem(e.target.id, e.target.checked);
-        }
-    });
-
-    // Optional: Debug localStorage
-    console.log('Current localStorage:', JSON.stringify(localStorage, null, 2));
-});
-    });
-});
+    // Optional: Add a clear button for testing
+    function clearCheckboxes() {
+        const checkboxes = document.querySelectorAll('.uni-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+            localStorage.removeItem(checkbox.id);
+        });
+        console.log('Cleared all checkboxes');
+    }
     </script>
 </body>
 </html>
