@@ -3231,36 +3231,35 @@
     <script>
     // Initialize checkboxes with persistent storage
     document.addEventListener('DOMContentLoaded', function() {
-        // Generate unique IDs based on country and position
-        function generateId(country, position) {
+        // Generate consistent IDs based on country and university name
+        function generateId(country, university) {
             const countryCode = country.replace(/[^a-zA-Z]/g, '').substring(0, 3).toLowerCase();
-            return `uni_${countryCode}_${position}`;
+            const uniCode = university.replace(/[^a-zA-Z0-9]/g, '').substring(0, 10).toLowerCase();
+            return `chk_${countryCode}_${uniCode}`;
         }
 
         // Process all university items
-        const countrySections = document.querySelectorAll('.country-header');
+        const universityItems = document.querySelectorAll('.university-item');
         
-        countrySections.forEach(countrySection => {
-            const countryName = countrySection.querySelector('h2').textContent;
-            const universityItems = countrySection.nextElementSibling.querySelectorAll('.university-item');
+        universityItems.forEach(item => {
+            const country = item.closest('.university-section').querySelector('.country-header h2').textContent;
+            const university = item.querySelector('h3').textContent;
+            const checkbox = item.querySelector('.uni-checkbox');
             
-            universityItems.forEach((item, index) => {
-                const checkbox = item.querySelector('.uni-checkbox');
-                const uniqueId = generateId(countryName, index + 1);
-                
-                // Set unique ID
-                checkbox.id = uniqueId;
-                
-                // Load saved state
-                const savedState = localStorage.getItem(uniqueId);
-                if (savedState !== null) {
-                    checkbox.checked = savedState === 'true';
-                }
-                
-                // Save on change
-                checkbox.addEventListener('change', function() {
-                    localStorage.setItem(uniqueId, this.checked);
-                });
+            // Set unique ID based on country and university name
+            const uniqueId = generateId(country, university);
+            checkbox.id = uniqueId;
+            
+            // Load saved state
+            const savedState = localStorage.getItem(uniqueId);
+            if (savedState !== null) {
+                checkbox.checked = savedState === 'true';
+            }
+            
+            // Save on change
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(uniqueId, this.checked);
+                console.log('Saved:', uniqueId, this.checked);
             });
         });
 
@@ -3282,6 +3281,7 @@
             localStorage.removeItem(checkbox.id);
         });
         console.log('All checkboxes cleared');
+        alert('All checkboxes cleared!');
         return false;
     }
 </script>
