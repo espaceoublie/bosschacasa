@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>University Application Checklist</title>
     
     <!-- Google Fonts -->
@@ -3092,22 +3095,28 @@
         }
 
         // Initialize checkboxes
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = document.querySelectorAll('.uni-checkbox');
-            
-            checkboxes.forEach(checkbox => {
-                const checkboxId = checkbox.id;
-                const savedState = loadCheckboxState(checkboxId);
-                
-                if (savedState !== null) {
-                    checkbox.checked = savedState;
-                }
-                
-                checkbox.addEventListener('change', function() {
-                    saveCheckboxState(checkboxId, this.checked);
-                });
-            });
-        });
+       document.addEventListener('DOMContentLoaded', function() {
+    // Load from localStorage
+    const checkboxes = document.querySelectorAll('.uni-checkbox');
+    checkboxes.forEach(checkbox => {
+        const savedState = localStorage.getItem(checkbox.id);
+        if (savedState !== null) {
+            checkbox.checked = savedState === 'true';
+        }
+    });
+
+    // Save on change
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('uni-checkbox')) {
+            localStorage.setItem(e.target.id, e.target.checked);
+        }
+    });
+
+    // Optional: Debug localStorage
+    console.log('Current localStorage:', JSON.stringify(localStorage, null, 2));
+});
+    });
+});
     </script>
 </body>
 </html>
