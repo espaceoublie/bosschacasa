@@ -3073,58 +3073,61 @@
     </div>
 
     <script>
-        // Function to generate a unique identifier based on IP
-        function getVisitorId() {
-            // In a real implementation, you would get this from your server
-            // For this demo, we'll use a simplified approach
-            return 'visitor_' + Math.floor(Math.random() * 1000000);
-        }
-
-        // Save checkbox state
-        function saveCheckboxState(checkboxId, isChecked) {
-            const visitorId = getVisitorId();
-            const key = visitorId + '_' + checkboxId;
-            localStorage.setItem(key, isChecked);
-        }
-
-        // Load checkbox state
-        function loadCheckboxState(checkboxId) {
-            const visitorId = getVisitorId();
-            const key = visitorId + '_' + checkboxId;
-            return localStorage.getItem(key) === 'true';
-        }
-
-        // Initialize checkboxes
+    // Initialize checkboxes with persistent storage
     document.addEventListener('DOMContentLoaded', function() {
-        // Load from localStorage
-        const checkboxes = document.querySelectorAll('.uni-checkbox');
-        checkboxes.forEach(checkbox => {
-            // Load saved state using just the checkbox ID as key
-            const savedState = localStorage.getItem(checkbox.id);
-            if (savedState !== null) {
-                checkbox.checked = savedState === 'true';
-            }
+        // Generate unique IDs based on country and position
+        function generateId(country, position) {
+            const countryCode = country.replace(/[^a-zA-Z]/g, '').substring(0, 3).toLowerCase();
+            return `uni_${countryCode}_${position}`;
+        }
+
+        // Process all university items
+        const countrySections = document.querySelectorAll('.country-header');
+        
+        countrySections.forEach(countrySection => {
+            const countryName = countrySection.querySelector('h2').textContent;
+            const universityItems = countrySection.nextElementSibling.querySelectorAll('.university-item');
             
-            // Save on change
-            checkbox.addEventListener('change', function() {
-                localStorage.setItem(checkbox.id, this.checked);
-                console.log('Saved:', checkbox.id, this.checked); // Debug logging
+            universityItems.forEach((item, index) => {
+                const checkbox = item.querySelector('.uni-checkbox');
+                const uniqueId = generateId(countryName, index + 1);
+                
+                // Set unique ID
+                checkbox.id = uniqueId;
+                
+                // Load saved state
+                const savedState = localStorage.getItem(uniqueId);
+                if (savedState !== null) {
+                    checkbox.checked = savedState === 'true';
+                }
+                
+                // Save on change
+                checkbox.addEventListener('change', function() {
+                    localStorage.setItem(uniqueId, this.checked);
+                });
             });
         });
 
-        // Debug: Log current localStorage state
-        console.log('Current localStorage state:', localStorage);
+        // Debugging helper
+        window.debugCheckboxStates = function() {
+            const states = {};
+            document.querySelectorAll('.uni-checkbox').forEach(checkbox => {
+                states[checkbox.id] = localStorage.getItem(checkbox.id);
+            });
+            console.log('Current checkbox states:', states);
+            return states;
+        };
     });
 
-    // Optional: Add a clear button for testing
-    function clearCheckboxes() {
-        const checkboxes = document.querySelectorAll('.uni-checkbox');
-        checkboxes.forEach(checkbox => {
+    // Clear all checkboxes (for testing)
+    function clearAllCheckboxes() {
+        document.querySelectorAll('.uni-checkbox').forEach(checkbox => {
             checkbox.checked = false;
             localStorage.removeItem(checkbox.id);
         });
-        console.log('Cleared all checkboxes');
+        console.log('All checkboxes cleared');
+        return false;
     }
-    </script>
+</script>
 </body>
 </html>
