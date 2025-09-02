@@ -389,50 +389,52 @@
                 reader.readAsDataURL(file);
             }
             
-            // Apply duotone effect
-            function applyDuotoneEffect() {
-                const isReversed = reverseToggle.checked;
-                
-                // Update toggle description
-                toggleDescription.textContent = isReversed ? 
-                    'Green highlights, Pink shadows' : 
-                    'Pink highlights, Green shadows';
-                
-                // Draw original image on canvas
-                ctx.drawImage(originalImage, 0, 0, processedCanvas.width, processedCanvas.height);
-                
-                // Get image data
-                const imageData = ctx.getImageData(0, 0, processedCanvas.width, processedCanvas.height);
-                const data = imageData.data;
-                
-                // Define colors
-                const pink = { r: 236, g: 72, b: 153 };   // #ec4899
-                const green = { r: 16, g: 185, b: 129 }; // #10b981
-                
-                // Apply duotone effect
-                for (let i = 0; i < data.length; i += 4) {
-                    // Calculate grayscale value (weighted average)
-                    const gray = 0.3 * data[i] + 0.59 * data[i+1] + 0.11 * data[i+2];
-                    
-                    // Normalize to 0-1
-                    const t = gray / 255;
-                    
-                    // Apply duotone colors based on toggle state
-                    if (isReversed) {
-                        data[i] = green.r * t;     // Red
-                        data[i+1] = green.g * t;   // Green
-                        data[i+2] = green.b * t;   // Blue
-                    } else {
-                        data[i] = pink.r * t;      // Red
-                        data[i+1] = pink.g * t;    // Green
-                        data[i+2] = pink.b * t;    // Blue
-                    }
-                    // Alpha channel remains unchanged
-                }
-                
-                // Put modified image data back to canvas
-                ctx.putImageData(imageData, 0, 0);
-            }
+           // Apply duotone effect (background = pink, subject = green)
+function applyDuotoneEffect() {
+    // Draw original image on canvas
+    ctx.drawImage(originalImage, 0, 0, processedCanvas.width, processedCanvas.height);
+
+    // Get image data
+    const imageData = ctx.getImageData(0, 0, processedCanvas.width, processedCanvas.height);
+    const data = imageData.data;
+
+    // Define duotone colors
+    const pink = { r: 236, g: 72, b: 153 };   // Brave Pink
+    const green = { r: 16, g: 185, b: 129 };  // Hero Green
+
+    // Detect background color by sampling top-left pixel
+    const bgR = data[0], bgG = data[1], bgB = data[2];
+
+    // Threshold to decide if pixel belongs to background
+    const threshold = 60; 
+
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i+1], b = data[i+2];
+
+        // Euclidean distance between current pixel and background color
+        const dist = Math.sqrt(
+            (r - bgR) ** 2 +
+            (g - bgG) ** 2 +
+            (b - bgB) ** 2
+        );
+
+        if (dist < threshold) {
+            // Background → Pink
+            data[i] = pink.r;
+            data[i+1] = pink.g;
+            data[i+2] = pink.b;
+        } else {
+            // Subject → Green
+            data[i] = green.r;
+            data[i+1] = green.g;
+            data[i+2] = green.b;
+        }
+    }
+
+    // Put modified image back
+    ctx.putImageData(imageData, 0, 0);
+}
+
             
             // Download image
             function downloadImage() {
