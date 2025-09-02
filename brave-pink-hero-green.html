@@ -409,27 +409,29 @@ function applyDuotoneEffect() {
     const threshold = 60; 
 
     for (let i = 0; i < data.length; i += 4) {
-        const r = data[i], g = data[i+1], b = data[i+2];
+    const r = data[i], g = data[i+1], b = data[i+2];
 
-        // Euclidean distance between current pixel and background color
-        const dist = Math.sqrt(
-            (r - bgR) ** 2 +
-            (g - bgG) ** 2 +
-            (b - bgB) ** 2
-        );
+    // grayscale (luminance)
+    const gray = 0.3 * r + 0.59 * g + 0.11 * b;
 
-        if (dist < threshold) {
-            // Background → Pink
-            data[i] = pink.r;
-            data[i+1] = pink.g;
-            data[i+2] = pink.b;
-        } else {
-            // Subject → Green
-            data[i] = green.r;
-            data[i+1] = green.g;
-            data[i+2] = green.b;
-        }
-    }
+    // distance from background color
+    const dist = Math.sqrt(
+        (r - bgR) ** 2 +
+        (g - bgG) ** 2 +
+        (b - bgB) ** 2
+    );
+
+    // pick overlay color
+    const baseColor = (dist < threshold) ? pink : green;
+
+    // overlay effect: scale baseColor by grayscale
+    const factor = gray / 255; 
+
+    data[i]     = baseColor.r * factor;
+    data[i + 1] = baseColor.g * factor;
+    data[i + 2] = baseColor.b * factor;
+}
+
 
     // Put modified image back
     ctx.putImageData(imageData, 0, 0);
